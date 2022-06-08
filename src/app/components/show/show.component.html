@@ -1,1 +1,10 @@
-<p>show works!</p>
+<mat-card-title>{{show.name}}</mat-card-title>
+<mat-card-subtitle>{{show.id}}</mat-card-subtitle>
+<mat-card-content>
+    <p>This card indeterminates progress bar.</p>
+    <p>asdfasdfsfa</p>
+</mat-card-content>
+<mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-raised-button (click)="openDialog()">Open dialog without animation</button>
+</mat-card-actions>

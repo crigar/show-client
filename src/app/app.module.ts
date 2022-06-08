@@ -14,6 +14,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import { TimeComponent } from './components/time/time.component';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AppComponent,
     OptionsComponent,
     ShowsComponent,
-    ShowComponent
+    ShowComponent,
+    TimeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     MatCardModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
