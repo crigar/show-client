@@ -26,5 +26,6 @@ export interface Show {
     image: ImageBitmap,
     summary: string,
     updated: number,
-    _links: any    
+    _links: any,
+    favorite: boolean 
 }

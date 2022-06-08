@@ -19,6 +19,7 @@ export class ShowsComponent implements OnInit {
   pageApi: number;
 
   private searchValueSub: Subscription;
+  private searchFavoritesSub: Subscription;
 
   constructor(private showService: ShowService) {
     this.shows = [];
@@ -28,12 +29,12 @@ export class ShowsComponent implements OnInit {
     this.pageSizeOptions  = [5, 10, 25, 100];
     this.pageApi = 0;
     this.searchValueSub = new Subscription();
+    this.searchFavoritesSub = new Subscription();
   }
 
   ngOnInit(): void {
     this.getShows();
-    this.searchValueSub = this.showService.searchValeSubject.subscribe((searchValue: string) => {
-      console.log(searchValue);
+    this.searchValueSub = this.showService.searchValueSubject.subscribe((searchValue: string) => {
       if (searchValue === '') {
         this.length = 0;
         this.shows = [];
@@ -41,21 +42,38 @@ export class ShowsComponent implements OnInit {
         this.getShows();
       } else {
         this.showService.searchShow(searchValue).subscribe((results: any) => {
-          this.shows = results.map((result: any) => result.show);
+          this.shows = results.map((result: any) => result.show );
           this.length = this.shows.length;
           this.showsPaginated = this.shows.slice(0, this.length + this.pageSize);
         });
+      }
+    });
+
+    this.searchFavoritesSub = this.showService.favoritesSubject.subscribe((showFavorites: boolean) => {
+      this.length = 0;
+      this.shows = [];
+      this.pageApi = 0;
+      if (showFavorites) {
+        let favorites = this.showService.getShowFavorites();
+        for (const id in favorites) {
+          this.showService.getShow(parseInt(id, 10)).subscribe((show: Show) => {
+            this.shows.push(show);
+          });
+        }
+        this.showsPaginated = this.shows;
+      } else {
+        this.getShows();
       }
     });
   }
 
   ngOnDestroy(): void {
     this.searchValueSub.unsubscribe();
+    this.searchFavoritesSub.unsubscribe();
   }
 
   getShows() {
     this.showService.getShows(this.pageApi).subscribe((shows: Show[]) => {
-      console.log(shows)
       this.shows = this.shows.concat(shows);
       this.showsPaginated = this.shows.slice(this.length, this.length + this.pageSize);
       this.length = this.shows.length;

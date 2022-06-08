@@ -1,4 +1,12 @@
-<mat-card-title>{{show.name}}</mat-card-title>
+<mat-card-title>{{show.name}}  
+    <button (click)="setFavorite(show.id)"
+        class="no-favorite"
+        [ngClass]="{ 'favorite': isFavorite(show.id)  }"
+        mat-icon-button color="warn" 
+        aria-label="Example icon button with a heart icon">
+        <mat-icon>favorite</mat-icon>
+    </button>
+</mat-card-title>
 <mat-card-subtitle>{{show.id}}</mat-card-subtitle>
 <mat-card-content>
     <p>This card indeterminates progress bar.</p>

@@ -10,17 +10,23 @@ import { ShowService } from 'src/app/services/show.service';
 export class OptionsComponent implements OnInit {
 
   searchValue: string;
+  searchFavorites: boolean;
 
   constructor(private showService: ShowService) {
     this.searchValue = '';
+    this.searchFavorites = false;
   }
 
   ngOnInit(): void {
   }
 
   onKeyUpEvent() {
-    console.log(this.searchValue)
-    this.showService.searchValeSubject.next(this.searchValue);
+    this.showService.searchValueSubject.next(this.searchValue);
+  }
+
+  getFavorites() {
+    this.searchFavorites = !this.searchFavorites;
+    this.showService.favoritesSubject.next(this.searchFavorites);
   }
 
 }

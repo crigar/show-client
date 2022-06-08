@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Show } from '../interfaces/show';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -9,10 +9,12 @@ import { Subject } from 'rxjs';
 })
 export class ShowService {
 
-  searchValeSubject: Subject<string>;
+  searchValueSubject: Subject<string>;
+  favoritesSubject: Subject<boolean>;
 
   constructor(private http: HttpClient) {
-    this.searchValeSubject = new Subject<string>();
+    this.searchValueSubject = new Subject<string>();
+    this.favoritesSubject = new Subject<boolean>();
   }
 
   configUrl = 'https://api.tvmaze.com/';
@@ -21,8 +23,17 @@ export class ShowService {
     return this.http.get<Show[]>(this.configUrl + 'shows?page=' + page);
   }
 
+  getShow(id: number): Observable<Show> {
+    return this.http.get<Show>(this.configUrl + 'shows/' + id);
+  }
+
   searchShow(searchValue: string) {
     return this.http.get<Show[]>(this.configUrl + 'search/shows?q=' + searchValue);
+  }
+
+  getShowFavorites() {
+    let favoritesLocalStorage = localStorage.getItem('favorites');
+    return favoritesLocalStorage ? JSON.parse(favoritesLocalStorage): {};
   }
 
 }

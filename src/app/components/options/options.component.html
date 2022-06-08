@@ -7,7 +7,7 @@
         </button>
     </mat-form-field>
     <div class="button-options">
-        <button mat-raised-button color="primary">My Favorites</button>
+        <button mat-raised-button color="primary" (click)="getFavorites()">{{searchFavorites ? 'Show All': 'My Favorites'}}</button>
         <button mat-button color="primary" class="store-and-analyze">Store and Analyze</button>
     </div>
 </div>
