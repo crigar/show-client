@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Show } from 'src/app/interfaces/show';
+import { ShowService } from 'src/app/services/show.service';
 
 @Component({
   selector: 'app-options',
@@ -9,11 +11,16 @@ export class OptionsComponent implements OnInit {
 
   searchValue: string;
 
-  constructor() {
+  constructor(private showService: ShowService) {
     this.searchValue = '';
   }
 
   ngOnInit(): void {
+  }
+
+  onKeyUpEvent() {
+    console.log(this.searchValue)
+    this.showService.searchValeSubject.next(this.searchValue);
   }
 
 }
