@@ -2,12 +2,13 @@
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Search show</mat-label>
         <input matInput type="search" [(ngModel)]="searchValue" #ctrl="ngModel" (keyup)="onKeyUpEvent()">
-        <button *ngIf="searchValue !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue = ''">
+        <button *ngIf="searchValue !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="celanSearch()">
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
     <div class="button-options">
-        <button mat-raised-button color="primary" (click)="getFavorites()">{{searchFavorites ? 'Show All': 'My Favorites'}}</button>
-        <button mat-button color="primary" class="store-and-analyze">Store and Analyze</button>
+        <button mat-raised-button color="primary" (click)="getFavorites()">My Favorites</button>
+        <button mat-raised-button color="warn" class="store-and-analyze" (click)="storeAndAnalyze()">Store and Analyze</button>
+        <button mat-raised-button color="primary" class="store-and-analyze" (click)="showAll()">Show All</button>
     </div>
 </div>

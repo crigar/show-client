@@ -1,9 +1,10 @@
-<h1 mat-dialog-title>Time - Schedule</h1>
-<div mat-dialog-content>
-  {{data.time}}
-  {{data.days}}
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+<div class="container">
+  <h1 mat-dialog-title>Time - Schedule</h1>
+  <div mat-dialog-content>
+    <h3>{{data.time}}</h3>
+    <p *ngFor="let day of data.days">{{day}}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>cerrar</button>
+  </div>
 </div>

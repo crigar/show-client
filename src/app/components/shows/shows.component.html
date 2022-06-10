@@ -1,11 +1,24 @@
-<div class="container">
-    <mat-card class="card" *ngFor="let show of showsPaginated">
-        <app-show [show]="show"></app-show>
-    </mat-card>
+<div class="container" *ngIf="loading === false">
+    <mat-chip-list aria-label="Fish selection" *ngIf="genres.length > 0">
+        <mat-chip 
+            *ngFor="let genre of genres" 
+            (click)="filterByGenre(genre)" 
+            [color]="genre === genreSelected ? 'primary': 'default'"
+            [selected]="genre === genreSelected"
+            >
+            {{genre}}
+        </mat-chip>
+    </mat-chip-list>      
+    <div class="cards">
+        <mat-card class="card" *ngFor="let show of showsPaginated">
+            <app-show [show]="show"></app-show>
+        </mat-card>
+    </div>
     <mat-paginator [length]="length"
                [pageSize]="pageSize"
                [pageSizeOptions]="pageSizeOptions"
-               (page)="newPage($event)"
+               (page)="onPaginatorChange($event)"
                aria-label="Select page">
     </mat-paginator>
 </div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading === true"></mat-progress-bar>

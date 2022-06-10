@@ -1,18 +1,23 @@
-<mat-card-title>{{show.name}}  
-    <button (click)="setFavorite(show.id)"
-        class="no-favorite"
-        [ngClass]="{ 'favorite': isFavorite(show.id)  }"
-        mat-icon-button color="warn" 
-        aria-label="Example icon button with a heart icon">
-        <mat-icon>favorite</mat-icon>
-    </button>
-</mat-card-title>
-<mat-card-subtitle>{{show.id}}</mat-card-subtitle>
-<mat-card-content>
-    <p>This card indeterminates progress bar.</p>
-    <p>asdfasdfsfa</p>
-</mat-card-content>
-<mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-raised-button (click)="openDialog()">Open dialog without animation</button>
-</mat-card-actions>
+<div class="container">
+    <mat-card-title>
+        <img [src]="show.image.medium" alt="">
+        <p>{{show.name}}</p>  
+        <button (click)="setFavorite(show.id)"
+            class="no-favorite"
+            [ngClass]="{ 'favorite': isFavorite(show.id)  }"
+            mat-icon-button color="warn" 
+            aria-label="Example icon button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+    </mat-card-title>
+    <mat-card-content>
+        <div [innerHTML]="show.summary"></div>
+    </mat-card-content>
+    <mat-card-subtitle>
+        <p *ngFor="let genre of show.genres">{{genre}}</p>
+    </mat-card-subtitle>
+    <mat-card-actions>
+        <button mat-button (click)="openDialog()">Time</button>
+        <a mat-raised-button target="_blank" [href]="show.officialSite">Official Site</a>
+    </mat-card-actions>
+</div>

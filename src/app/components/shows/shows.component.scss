@@ -1,15 +1,50 @@
+@import "~src/variables";  
+
 .container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
 
-    .card {
-        min-width: 250px;
-        flex: 0 20%;
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+
+        .card {
+            background-color: $grey-show;
+            flex: 0 20%;
+            min-width: 250px;
+        }
+
+    }
+
+    mat-chip-list {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+
+        .genre-selected {
+            background-color: #3f51b5;
+            color: white;
+        }
     }
 
     mat-paginator {
+        color: white;
+        background-color: $grey-show;
         width: 100%;
+
+        ::ng-deep.mat-select-value .ng-tns-c116-2 {
+            color: $white;
+        }
+
+        ::ng-deep.mat-select-arrow-wrapper.mat-select-arrow ng-tns-c116-2 {
+            color: $white;
+        }   
     }
+
+
 }

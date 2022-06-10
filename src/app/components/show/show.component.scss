@@ -1,7 +1,44 @@
-.no-favorite{
-    color: grey;
-}
 
-.favorite {
-    color: yellow;
+@import "~src/variables";
+
+.container {
+    color: $white;
+    background-color: $grey-show;
+
+    mat-card-title {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            height: 60px;
+        }
+        
+        p {
+            font-size: 17px;
+            margin: initial;
+        }
+    }
+
+    mat-card-subtitle {
+        color: $white;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    mat-card-content {
+        > div {
+            height: 115px;
+            max-height: 115px;
+            overflow: hidden;
+        }
+    }
+
+    .no-favorite{
+        color: $white;
+    }
+    
+    .favorite {
+        color: $favorite;
+    }
 }

@@ -16,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import { TimeComponent } from './components/time/time.component';
-
+import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { TimeComponent } from './components/time/time.component';
     MatCardModule,
     HttpClientModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

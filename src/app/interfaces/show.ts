@@ -1,4 +1,5 @@
 import { Externals } from "./externals"
+import { Image } from "./image"
 import { Network } from "./network"
 import { Rating } from "./rating"
 import { Schedule } from "./schedule"
@@ -23,7 +24,7 @@ export interface Show {
     webChannel: string,
     dvdCountry: string,
     externals: Externals,
-    image: ImageBitmap,
+    image: Image,
     summary: string,
     updated: number,
     _links: any,

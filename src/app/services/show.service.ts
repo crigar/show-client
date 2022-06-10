@@ -3,32 +3,36 @@ import { HttpClient } from '@angular/common/http';
 import { Show } from '../interfaces/show';
 import { Observable, Subject } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ShowService {
 
   searchValueSubject: Subject<string>;
-  favoritesSubject: Subject<boolean>;
+  favoritesSubject: Subject<any[]>;
+  scheduleSubject: Subject<any[]>;
+  showAllSubject: Subject<any>;
 
   constructor(private http: HttpClient) {
     this.searchValueSubject = new Subject<string>();
-    this.favoritesSubject = new Subject<boolean>();
+    this.favoritesSubject = new Subject<any[]>();
+    this.scheduleSubject = new Subject<any[]>();
+    this.showAllSubject = new Subject();
   }
 
-  configUrl = 'https://api.tvmaze.com/';
+  tvmazeApiUrl = 'https://api.tvmaze.com/';
+  showApiUrl = 'http://127.0.0.1:8000/';
 
   getShows(page: number) {
-    return this.http.get<Show[]>(this.configUrl + 'shows?page=' + page);
+    return this.http.get<Show[]>(this.tvmazeApiUrl + 'shows?page=' + page);
   }
 
   getShow(id: number): Observable<Show> {
-    return this.http.get<Show>(this.configUrl + 'shows/' + id);
+    return this.http.get<Show>(this.tvmazeApiUrl + 'shows/' + id);
   }
 
   searchShow(searchValue: string) {
-    return this.http.get<Show[]>(this.configUrl + 'search/shows?q=' + searchValue);
+    return this.http.get<Show[]>(this.tvmazeApiUrl + 'search/shows?q=' + searchValue);
   }
 
   getShowFavorites() {
@@ -36,4 +40,29 @@ export class ShowService {
     return favoritesLocalStorage ? JSON.parse(favoritesLocalStorage): {};
   }
 
+  getSchedulePerDate(date: string) {
+    // 2022-03-10
+    return this.http.get<any>(this.tvmazeApiUrl + `schedule/web?date=${date}&country=US`); 
+  }
+
+  storeAndAnalyze(data: any[]): Observable<any> {
+    
+    return this.http.post<any>(this.showApiUrl + 'store-and-analyze', JSON.stringify({ data })); 
+  }
+
+  getLastSchedules(): void {
+    let days = 2;
+    let schedules: any[] = [];
+    for (let index = 0; index < days; index++) {
+      let today = new Date();
+      today.setDate(today.getDate() - index);
+      let dayFormat = today.toISOString().split('T')[0];
+      this.getSchedulePerDate(dayFormat).subscribe((data: any) => {
+        console.log(dayFormat)
+        console.log(data)
+        schedules = schedules.concat(data);
+        if (index === days - 1) this.scheduleSubject.next(schedules);
+      });
+    }
+  }
 }

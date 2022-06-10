@@ -1,3 +1,6 @@
+@import "~src/variables";   
+
 .container {
+    background-color: $black-bg;
     padding: 10px;
 }
