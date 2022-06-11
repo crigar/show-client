@@ -6,7 +6,7 @@
             [color]="genre === genreSelected ? 'primary': 'default'"
             [selected]="genre === genreSelected"
             >
-            {{genre}}
+            {{genre}}  ({{showsByGenres[genre].length}})
         </mat-chip>
     </mat-chip-list>      
     <div class="cards">
