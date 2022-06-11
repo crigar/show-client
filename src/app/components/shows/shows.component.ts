@@ -115,7 +115,6 @@ export class ShowsComponent implements OnInit {
   }
 
   onPaginatorChange($event: PageEvent) {
-    console.log($event)
     this.pageSize = $event.pageSize;
     const initIndex = $event.pageIndex * this.pageSize;
     this.showsPaginated = this.shows.slice(initIndex, initIndex + this.pageSize);

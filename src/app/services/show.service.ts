@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Show } from '../interfaces/show';
 import { Observable, Subject } from 'rxjs';
 
@@ -21,7 +21,7 @@ export class ShowService {
   }
 
   tvmazeApiUrl = 'https://api.tvmaze.com/';
-  showApiUrl = 'http://127.0.0.1:8000/';
+  showApiUrl = 'api/';
 
   getShows(page: number) {
     return this.http.get<Show[]>(this.tvmazeApiUrl + 'shows?page=' + page);
@@ -41,25 +41,21 @@ export class ShowService {
   }
 
   getSchedulePerDate(date: string) {
-    // 2022-03-10
     return this.http.get<any>(this.tvmazeApiUrl + `schedule/web?date=${date}&country=US`); 
   }
 
   storeAndAnalyze(data: any[]): Observable<any> {
-    
     return this.http.post<any>(this.showApiUrl + 'store-and-analyze', JSON.stringify({ data })); 
   }
 
   getLastSchedules(): void {
-    let days = 2;
+    let days = 10;
     let schedules: any[] = [];
     for (let index = 0; index < days; index++) {
       let today = new Date();
       today.setDate(today.getDate() - index);
       let dayFormat = today.toISOString().split('T')[0];
       this.getSchedulePerDate(dayFormat).subscribe((data: any) => {
-        console.log(dayFormat)
-        console.log(data)
         schedules = schedules.concat(data);
         if (index === days - 1) this.scheduleSubject.next(schedules);
       });
