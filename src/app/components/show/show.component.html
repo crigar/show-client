@@ -1,7 +1,7 @@
 <div class="container">
     <mat-card-title>
         <img [src]="show.image.medium" alt="">
-        <p>{{show.name}}</p>  
+        <p>{{show.name}} <ng-content></ng-content></p>  
         <button (click)="setFavorite(show.id)"
             class="no-favorite"
             [ngClass]="{ 'favorite': isFavorite(show.id)  }"
